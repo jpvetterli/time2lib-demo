@@ -1,8 +1,5 @@
-<link rel="stylesheet" type="text/css" href="README.css"/>
-Demos for the Time2 Library
-===========================
-
-2012-08-25/jpv
+time2lib : Demos for the Time2 Library
+======================================
 
 	Copyright 2011-2012 Hauser Olsson GmbH.
 	
@@ -20,79 +17,129 @@ Demos for the Time2 Library
 
 ***
 
-Thanks for your interest in the Time2 Library demos. Here you will find tips
-on how to:
+The Time2 Library is a Java library providing 
+generic time series with configurable time domains. This package
+provides a few demos.
 
-- run the demos
-- browse the source
-- build the demos
+Distribution
+------------
 
-Running the demos
--
+Starting with version 1.0.1, the distribution consists of a binary JAR with 
+compiled classes and of a source JAR:
 
-To run the demos use the archive __t2-demo-1.0-jar-with-dependencies.jar__.
-It is large because all required third party libraries are included.
-There is a second archive, __t2-demo-1.0.jar__, containing only the demos.
+	t2-demo-<version>.jar
+	t2-demo-<version>-sources.jar
 
-The command line syntax assumes Linux, but things are kept simple
-and no special knowledge is required, except some familiarity with Java. 
-Of course, to run the demos, you need to have basic Java tools installed.
+In the file names `<version>` stands of course for the actual version,
+`1.0.1` for example. For earlier versions, the suffix of the source JAR 
+is `.source` instead of `-sources`.  
 
-The simplest demo, Olympics, runs out of the box:
+Dependencies
+------------
 
-	$ java -jar t2-demo-1.0-jar-with-dependencies.jar
-	1896=Athens
-	1900=Paris
-	1904=Saint-Louis
-	1908=London
-	1912=Stockholm
-	1916=(missing)
-	1920=Antwerp
-	1924=Paris
-	1928=Amsterdam
-	1932=Los Angeles
-	1936=Berlin
+The software is built with maven; dependencies are defined in the <q>POM</q>
+file, included in the binary JAR:
 
-Another simple demo is DateDays (the command is all on one line):
+	/META-INF/maven/ch.agent/t2-demo/pom.xml
 
-	$ java -cp t2-demo-1.0-jar-with-dependencies.jar \
-		ch.agent.t2.demo.DateDays 1291-08-01 2012-08-25
-	[1291-08-01, 2012-08-25] = 263364 day(s)
+Building the software
+---------------------
 
-There is a larger demo, StockCharts. As a prelimary step, extract the data
-file FBI.csv from the archive:
-
-	$ jar xf t2-demo-1.0-jar-with-dependencies.jar FBI.csv
-
-To create a PNG and an SVG chart from this data, execute the next two commands 
-(with all arguments on one big line):
-
-	$ java -cp t2-demo-1.0-jar-with-dependencies.jar \
-		ch.agent.t2.demo.StockChart data=FBI.csv out=FBI-1991Q1.png \
-		date1=1991-01-01 date2=1991-03-31 title="Foo & Bar, Inc (unadjusted)"
-	$ java -cp t2-demo-1.0-jar-with-dependencies.jar \
-		ch.agent.t2.demo.StockChart data=FBI.csv out=FBI-1991Q1.svg \
-		date1=1991-01-01 date2=1991-03-31 title="Foo & Bar, Inc (unadjusted)"
-
-Inspect the output files with a viewer or your usual browser. If you use Firefox, 
-you should be able to view the SVG file and to resize it without loss of quality.
-
-Browsing the source code
--
-
-The source is available on GitHub at <http://github.com/jpvetterli/time2lib-demo.git>.
-
-Building the demos
--
-
-The easiest way is to use maven (<http://maven.apache.org>). The process is easy, 
-as maven takes care of locating and downloading dependencies:
+The recommended way is to use [git](http://git-scm.com) for accessing the
+source and [maven](<http://maven.apache.org/>) for building. The procedure 
+is easy, as maven takes care of locating and downloading dependencies:
 
 	$ git clone https://github.com/jpvetterli/time2lib-demo.git
 	$ cd time2lib-demo
-	$ mvn package
-	$ ls target/*.jar
-	t2-demo-1.0.jar t2-demo-1.0-jar-with-dependencies.jar
+	$ mvn install
 
-More information on the Time2 Library is available at <http://agent.ch/timeseries/t2>.
+This builds and installs the distribution JARs in your local maven
+repository. They can also be found in the `target` directory.
+
+When building the software by other means, the following dependencies must be
+addressed:
+
+- `batik-awt-util-<version>.jar` [Batik](http://xmlgraphics.apache.org/batik/)
+- `batik-svggen-<version>.jar` [Batik](http://xmlgraphics.apache.org/batik/)
+- `batik-util-<version>.jar` [Batik](http://xmlgraphics.apache.org/batik/)
+- `jcommon-<version>.jar` [JCommon](http://www.jfree.org/jcommon/)
+- `jfreechart-<version>.jar` [JFreeChart](http://www.jfree.org/jfreechart/) 
+- `t2-<version>.jar` [Time2 Library](http://agent.ch/timeseries/t2/) 
+
+Versions numbers can be found in the <q>POM</q> file mentionned previously. 
+
+Generating the documentation
+----------------------------
+
+If you are using maven, you can generate the javadocs with:
+
+	$ mvn javadoc:jar
+
+The documentation is packed into a JAR located in the `target` directory
+and can be browsed by pointing at the file:
+
+	target/apidocs/index.html
+
+Running the demos
+-----------------
+
+The following command executes the <q>default</q> demo:
+
+	$ mvn -q exec:exec
+	1896=Athens
+	1900=Paris
+	[... some output removed ...]
+	1932=Los Angeles
+	1936=Berlin
+
+(Everything after the first line is the output of the command.)
+The same can be done with:
+
+	$ mvn -q -Ddemo.mainClass=ch.agent.t2.demo.Olympics exec:exec
+	1896=Athens
+	[... some output removed ...]
+
+A demo requiring arguments is specified like this:
+
+	$ mvn -q -Ddemo.mainClass=ch.agent.t2.demo.DateDays \
+             -Ddemo.args="1291-08-01 2012-08-28" exec:exec
+	[1291-08-01, 2012-08-28] = 263367 day(s)
+
+The command computes the number of days between two dates.
+
+Note: this was executed in a Unix shell, which supports line continuation
+with a backslash. In case your shell or command window does not do this, 
+write the command as one long line.
+
+Yet another demo is StockChart, which creates a .png or .svg graphic file:
+
+	$ mvn -q -Ddemo.mainClass=ch.agent.t2.demo.StockChart \
+	     -Ddemo.args="data=data/FBI.csv out=/tmp/FBI.png" exec:exec
+	/tmp/FBI.png
+
+StockChart can take more parameters:
+
+	$ mvn -q -Ddemo.mainClass=ch.agent.t2.demo.StockChart \
+		-Ddemo.args="data=data/FBI.csv \
+		date1=1991-01-01 date2=1991-03-31 \
+		title='Foo & Bar, Inc (unadjusted)' \
+		out=/tmp/FBI.svg" \
+		exec:exec
+	/tmp/FBI.svg
+
+Browsing the source code
+------------------------
+
+The source is available on GitHub at 
+<http://github.com/jpvetterli/time2lib.git>.
+
+Finding more information
+------------------------
+
+More information on the Time2 Library is available at 
+<http://agent.ch/timeseries/t2/>.
+
+<small>Updated: 2012-08-28/jpv</small>
+
+<link rel="stylesheet" type="text/css" href="README.css"/>
 

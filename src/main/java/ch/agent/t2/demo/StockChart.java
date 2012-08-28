@@ -29,6 +29,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -229,7 +230,7 @@ public class StockChart {
 		CSVFile file = new CSVFile("\\s*,\\s*", 0, 4, 5);
 		
 		DataSet data = new DataSet(domain, jfcTimeClass, date1, date2);
-		file.scan(new File(fileName), data);
+		file.scan(fileName, data);
 		
 		return data;
 	}
@@ -240,7 +241,7 @@ public class StockChart {
 	 * @param title the chart title, possibly empty
 	 * @param data a non-null {@link DataSet}
 	 * @param workdaysOnly if true, use a {@link Timeline} to eliminate weekends
-	 * @return a {@JFreeChart} chart object
+	 * @return a {@link JFreeChart} chart object
 	 * @throws Exception
 	 */
 	public JFreeChart makeChart(String title, DataSet data, boolean workdaysOnly) throws Exception {
@@ -415,7 +416,7 @@ public class StockChart {
 	 * it either directly or converted to jFreeChart {@link TimeSeries}.
 	 * <p>
 	 * It implements {@link LineVisitor} and so can be passed to
-	 * {@link CSVFile#scan(File, LineVisitor)}.
+	 * {@link CSVFile#scan}.
 	 */
 	public class DataSet implements LineVisitor {
 
@@ -660,14 +661,17 @@ public class StockChart {
 		/**
 		 * Scan an input file.
 		 * 
-		 * @param input
-		 *            a non-null input file
+		 * @param resource
+		 *            a string identifying a resource or a file
 		 * @throws Exception
 		 */
-		public void scan(File input, LineVisitor visitor) throws Exception {
+		public void scan(String resource, LineVisitor visitor) throws Exception {
 			int lineNr = 0;
 			try {
-				BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
+				InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(resource);
+				if (inputStream == null)
+					inputStream = new FileInputStream(resource);
+				BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
 				while (true) {
 					String line = r.readLine();
 					if (line == null)
@@ -682,10 +686,10 @@ public class StockChart {
 			} catch (Exception e) {
 				if (lineNr > 0)
 					throw new Exception(String.format("Error occurred while reading line %d of file \"%s\"",
-							lineNr, input.getAbsolutePath()), e);
+							lineNr, resource), e);
 				else
-					throw new Exception(String.format("Error occurred while reading file \"%s\"",
-									input.getAbsolutePath()), e);
+					throw new Exception(String.format("Error occurred while accessing resource \"%s\"",
+									resource), e);
 			}
 		}
 	}
