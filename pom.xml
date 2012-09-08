@@ -21,7 +21,7 @@
   <groupId>ch.agent</groupId>
   <artifactId>t2-demo</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <name>Time2 Library Demo</name>
   <url>http://agent.ch/timeseries/t2/</url>
 
@@ -32,21 +32,27 @@
     </license>
   </licenses>
 
+  <scm>
+    <connection>scm:git:git@github.com:jpvetterli/time2lib-demo.git</connection>
+    <developerConnection>scm:git:git@github.com:jpvetterli/time2lib-demo.git</developerConnection>
+    <url>https://github.com/jpvetterli/time2lib-demo.git</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>jpv</id>
+      <name>Jean-Paul Vetterli</name>
+      <email>vetterli@gmail.com</email>
+    </developer>
+  </developers>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <exec.executable>java</exec.executable>
+    <exec.executable>${java.home}/bin/java</exec.executable>
     <exec.args>-cp %classpath ${demo.mainClass} ${demo.args}</exec.args>
     <demo.mainClass>ch.agent.t2.demo.Olympics</demo.mainClass>
     <demo.args></demo.args>
   </properties>
-
-  <repositories>
-    <repository>
-      <!-- t2 and crnickl are not on a central repository yet -->
-      <id>jpvetterli on github.com</id>
-      <url>https://raw.github.com/jpvetterli/maven-repo/master/releases/</url>
-    </repository>
-  </repositories>
 
   <build>
 
@@ -99,14 +105,15 @@
           <show>protected</show>
           <nohelp>true</nohelp>
         </configuration>
-        <!--executions>
+        <executions>
           <execution>
             <id>attach-javadocs</id>
+            <phase>install</phase>
             <goals>
               <goal>jar</goal>
             </goals>
           </execution>
-        </executions-->
+        </executions>
       </plugin>
 
       <plugin>
@@ -123,7 +130,7 @@
     <dependency>
       <groupId>ch.agent</groupId>
       <artifactId>t2</artifactId>
-      <version>1.1.5</version>
+      <version>1.1.6</version>
       <scope>compile</scope>
     </dependency>
 
