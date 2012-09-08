@@ -1,4 +1,4 @@
-<h1>time2lib : Demos for the Time2 Library</h1>
+<h1>time2lib-demo : Demos for the Time2 Library</h1>
 
 <pre><code>Copyright 2011-2012 Hauser Olsson GmbH.
 
@@ -23,23 +23,12 @@ provides a few demos.</p>
 
 <h2>Distribution</h2>
 
-<p>Starting with version 1.0.1, the distribution consists of a binary JAR with 
-compiled classes and of a source JAR:</p>
+<p>Starting with version 1.0.2, the distribution consists of a binary JAR with 
+compiled classes, of a javadoc JAR and of a source JAR. For version x.y.z:</p>
 
-<pre><code>t2-demo-&lt;version&gt;.jar
-t2-demo-&lt;version&gt;-sources.jar
-</code></pre>
-
-<p>In the file names <code>&lt;version&gt;</code> stands of course for the actual version,
-<code>1.0.1</code> for example. For earlier versions, the suffix of the source JAR 
-is <code>.source</code> instead of <code>-sources</code>.  </p>
-
-<h2>Dependencies</h2>
-
-<p>The software is built with maven; dependencies are defined in the <q>POM</q>
-file, included in the binary JAR:</p>
-
-<pre><code>/META-INF/maven/ch.agent/t2-demo/pom.xml
+<pre><code>t2-demo-x.y.z.jar
+t2-demo-x.y.z-javadoc.jar
+t2-demo-x.y.z-sources.jar
 </code></pre>
 
 <h2>Building the software</h2>
@@ -68,19 +57,10 @@ addressed:</p>
 <li><code>t2-&lt;version&gt;.jar</code> <a href="http://agent.ch/timeseries/t2/">Time2 Library</a> </li>
 </ul>
 
-<p>Versions numbers can be found in the <q>POM</q> file mentionned previously. </p>
+<p>Versions numbers can be found in the <q>POM</q> file included in the binary 
+JAR:</p>
 
-<h2>Generating the documentation</h2>
-
-<p>If you are using maven, you can generate the javadocs with:</p>
-
-<pre><code>$ mvn javadoc:jar
-</code></pre>
-
-<p>The documentation is packed into a JAR located in the <code>target</code> directory
-and can be browsed by pointing at the file:</p>
-
-<pre><code>target/apidocs/index.html
+<pre><code>/META-INF/maven/ch.agent/t2-demo/pom.xml
 </code></pre>
 
 <h2>Running the demos</h2>
@@ -137,13 +117,13 @@ write the command as one long line.</p>
 <h2>Browsing the source code</h2>
 
 <p>The source is available on GitHub at 
-<a href="http://github.com/jpvetterli/time2lib.git">http://github.com/jpvetterli/time2lib.git</a>.</p>
+<a href="http://github.com/jpvetterli/time2lib-demo.git">http://github.com/jpvetterli/time2lib-demo.git</a>.</p>
 
 <h2>Finding more information</h2>
 
 <p>More information on the Time2 Library is available at 
 <a href="http://agent.ch/timeseries/t2/">http://agent.ch/timeseries/t2/</a>.</p>
 
-<p><small>Updated: 2012-08-28/jpv</small></p>
+<p><small>Updated: 2012-09-07/jpv</small></p>
 
 <p><link rel="stylesheet" type="text/css" href="README.css"/></p>

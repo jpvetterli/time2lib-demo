@@ -83,8 +83,7 @@ import ch.agent.t2.timeutil.JavaDateUtil;
 
 /**
  * StockChart draws a chart of stock prices and trading volume for the share
- * of a company. The demo used the JFreeChart library for creating the chart.
- * The version used is 1.0.9. There were problems trying to use version 1.0.13.
+ * of a company. The demo uses the JFreeChart library for creating the chart.
  * 
  * @author Jean-Paul Vetterli
  * @version 1.0.0
