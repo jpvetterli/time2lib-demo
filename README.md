@@ -91,22 +91,6 @@ Note: this was executed in a Unix shell, which supports line continuation
 with a backslash. In case your shell or command window does not do this, 
 write the command as one long line.
 
-Yet another demo is StockChart, which creates a .png or .svg graphic file:
-
-	$ mvn -q -Ddemo.mainClass=ch.agent.t2.demo.StockChart \
-	     -Ddemo.args="data=data/FBI.csv out=/tmp/FBI.png" exec:exec
-	/tmp/FBI.png
-
-StockChart can take more parameters:
-
-	$ mvn -q -Ddemo.mainClass=ch.agent.t2.demo.StockChart \
-		-Ddemo.args="data=data/FBI.csv \
-		date1=1991-01-01 date2=1991-03-31 \
-		title='Foo & Bar, Inc (unadjusted)' \
-		out=/tmp/FBI.svg" \
-		exec:exec
-	/tmp/FBI.svg
-
 Browsing the source code
 ------------------------
 

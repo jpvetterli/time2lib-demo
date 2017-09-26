@@ -1,5 +1,5 @@
 /*
- *   Copyright 2011-2013 Hauser Olsson GmbH
+ *   Copyright 2011-2017 Hauser Olsson GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,7 @@
  */
 package ch.agent.t2.demo;
 
-import ch.agent.t2.time.Cycle;
-import ch.agent.t2.time.Resolution;
 import ch.agent.t2.time.TimeDomain;
-import ch.agent.t2.time.TimeDomainDefinition;
-import ch.agent.t2.time.TimeDomainManager;
 import ch.agent.t2.timeseries.Observation;
 import ch.agent.t2.timeseries.TimeAddressable;
 import ch.agent.t2.timeseries.TimeSeriesFactory;
@@ -34,9 +30,7 @@ public class Olympics {
 
 	public static void main(String[] args) {
 		try {
-			// define time domain "once every fourth year"
-			TimeDomainDefinition year4def = new TimeDomainDefinition("year4", Resolution.YEAR, 0L, new Cycle(true, false, false, false));
-			TimeDomain year4 = TimeDomainManager.getFactory().get(year4def, true);
+			TimeDomain year4 = new EveryFourYears();
 			
 			// define "missing value" for String (else, the default is null)
 			String missingValue = "(missing)";
@@ -54,7 +48,4 @@ public class Olympics {
 			System.err.println("Oops...\n" + e.getMessage());
 		}
 	}
-
-	
-	
 }

@@ -1,6 +1,6 @@
 <h1>time2lib-demo : Demos for the Time2 Library</h1>
 
-<pre><code>Copyright 2011-2013 Hauser Olsson GmbH.
+<pre><code>Copyright 2011-2017 Hauser Olsson GmbH.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -95,24 +95,6 @@ The same can be done with:</p>
 <p>Note: this was executed in a Unix shell, which supports line continuation
 with a backslash. In case your shell or command window does not do this, 
 write the command as one long line.</p>
-
-<p>Yet another demo is StockChart, which creates a .png or .svg graphic file:</p>
-
-<pre><code>$ mvn -q -Ddemo.mainClass=ch.agent.t2.demo.StockChart \
-     -Ddemo.args="data=data/FBI.csv out=/tmp/FBI.png" exec:exec
-/tmp/FBI.png
-</code></pre>
-
-<p>StockChart can take more parameters:</p>
-
-<pre><code>$ mvn -q -Ddemo.mainClass=ch.agent.t2.demo.StockChart \
-    -Ddemo.args="data=data/FBI.csv \
-    date1=1991-01-01 date2=1991-03-31 \
-    title='Foo &amp; Bar, Inc (unadjusted)' \
-    out=/tmp/FBI.svg" \
-    exec:exec
-/tmp/FBI.svg
-</code></pre>
 
 <h2>Browsing the source code</h2>
 

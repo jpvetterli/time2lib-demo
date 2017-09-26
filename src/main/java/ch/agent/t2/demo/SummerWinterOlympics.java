@@ -1,5 +1,5 @@
 /*
- *   Copyright 2011-2013 Hauser Olsson GmbH
+ *   Copyright 2011-2017 Hauser Olsson GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,7 @@
  */
 package ch.agent.t2.demo;
 
-import ch.agent.t2.time.Cycle;
-import ch.agent.t2.time.Resolution;
 import ch.agent.t2.time.TimeDomain;
-import ch.agent.t2.time.TimeDomainDefinition;
-import ch.agent.t2.time.TimeDomainManager;
 import ch.agent.t2.timeseries.Observation;
 import ch.agent.t2.timeseries.TimeAddressable;
 import ch.agent.t2.timeseries.TimeSeriesFactory;
@@ -34,12 +30,8 @@ public class SummerWinterOlympics {
 
 	public static void main(String[] args) {
 		try {
-			// define time domain "once every fourth year"
-			TimeDomainDefinition year4def = new TimeDomainDefinition("year4", Resolution.YEAR, 0L, new Cycle(true, false, false, false));
-			TimeDomain year4 = TimeDomainManager.getFactory().get(year4def, true);
-
-			TimeDomainDefinition year4defShiftedBy2 = new TimeDomainDefinition("year4s2", Resolution.YEAR, 2L, new Cycle(false, false, true, false));
-			TimeDomain year4s2 = TimeDomainManager.getFactory().get(year4defShiftedBy2, true);
+			TimeDomain year4 = new EveryFourYears();
+			TimeDomain year4s2 = new EveryFourYearsShiftedBy2();
 			
 			// define "missing value" for String (else, the default is null)
 			String missingValue = "(missing)";
@@ -62,7 +54,5 @@ public class SummerWinterOlympics {
 			e.printStackTrace();
 		}
 	}
-
-	
 	
 }
