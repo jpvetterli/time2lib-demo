@@ -18,8 +18,8 @@ package ch.agent.t2.demo;
 
 import ch.agent.t2.time.TimeDomain;
 import ch.agent.t2.timeseries.Observation;
+import ch.agent.t2.timeseries.RegularTimeSeries;
 import ch.agent.t2.timeseries.TimeAddressable;
-import ch.agent.t2.timeseries.TimeSeriesFactory;
 
 /**
  * Olympics is a (very) little demo for the Time2 library.
@@ -34,9 +34,7 @@ public class Olympics {
 			
 			// define "missing value" for String (else, the default is null)
 			String missingValue = "(missing)";
-			TimeSeriesFactory.getInstance().define(String.class, missingValue);
-
-			TimeAddressable<String> olympics = TimeSeriesFactory.make(year4, String.class);
+			TimeAddressable<String> olympics = new RegularTimeSeries<String>(String.class, year4, missingValue);
 			olympics.put(year4.time("1896"), new String[] {"Athens", "Paris", "Saint-Louis", "London", "Stockholm"});
 			olympics.put(year4.time("1920"), new String[] {"Antwerp", "Paris", "Amsterdam", "Los Angeles", "Berlin"});
 			
