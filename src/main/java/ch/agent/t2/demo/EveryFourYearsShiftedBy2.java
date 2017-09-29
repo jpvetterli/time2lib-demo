@@ -19,7 +19,7 @@ package ch.agent.t2.demo;
 import ch.agent.t2.time.Cycle;
 import ch.agent.t2.time.Resolution;
 import ch.agent.t2.time.TimeDomainDefinition;
-import ch.agent.t2.time.engine.TimeFactory;
+import ch.agent.t2.time.TimeFactory;
 
 /**
  * Once every four years, shifted by 2 years.
