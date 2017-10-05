@@ -16,13 +16,20 @@
  */
 package ch.agent.t2.demo;
 
+import ch.agent.t2.time.Cycle;
+import ch.agent.t2.time.ImmutableTimeDomainCatalog;
+import ch.agent.t2.time.Resolution;
 import ch.agent.t2.time.TimeDomain;
+import ch.agent.t2.time.TimeDomainCatalog;
+import ch.agent.t2.time.TimeDomainDefinition;
+import ch.agent.t2.time.TimeFactory;
 import ch.agent.t2.timeseries.Observation;
 import ch.agent.t2.timeseries.RegularTimeSeries;
 import ch.agent.t2.timeseries.TimeAddressable;
 
 /**
- * Olympics is a (very) little demo for the Time2 library.
+ * SummerWinterOlympics is a (very) small demo for the Time2 library.
+ * It shows how to use a time domain catalog.
  *
  * @author Jean-Paul Vetterli
  */
@@ -30,27 +37,62 @@ public class SummerWinterOlympics {
 
 	public static void main(String[] args) {
 		try {
-			TimeDomain year4 = new EveryFourYears();
-			TimeDomain year4s2 = new EveryFourYearsShiftedBy2();
-			
-			// define "missing value" for String (else, the default is null)
-			String missingValue = "(missing)";
-			TimeAddressable<String> solympics = new RegularTimeSeries<String>(String.class, year4, missingValue);
-			TimeAddressable<String> wolympics = new RegularTimeSeries<String>(String.class, year4s2, missingValue);
-			solympics.put(year4.time("1996"), new String[] {"Atlanta", "Sydney", "Athens", "Beijing"});
-			wolympics.put(year4s2.time("1998"), new String[] {"Nagano", "Salt Lake City", "Turin", "Vancouver"});
-			
-			for (Observation<String> oly : solympics) {
-				System.out.println(oly.toString());
-			}
-			for (Observation<String> oly : wolympics) {
-				System.out.println(oly.toString());
-			}
-			
+			TimeDomainCatalog cat = new ImmutableTimeDomainCatalog(
+					new EveryFourYears(), 
+					new EveryFourYearsShiftedBy2()
+			) {};
+			SummerWinterOlympics app = new SummerWinterOlympics(cat);
+			app.run();
 		} catch (Exception e) {
 			System.err.println("Oops...\n" + e.getMessage());
 			e.printStackTrace();
 		}
 	}
+	
+	// once every 4th year starting in year 0000
+	public static class EveryFourYears extends TimeFactory {
+		public static final String LABEL = "year4";
+		public EveryFourYears() {
+			super(new TimeDomainDefinition(LABEL, Resolution.YEAR, 0L, new Cycle(true, false, false, false)));
+		}
+	}
+
+	// once every 4th year starting in year 0002
+	public static class EveryFourYearsShiftedBy2 extends TimeFactory {
+		public static final String LABEL = "year4s2";
+		public EveryFourYearsShiftedBy2() {
+			super(new TimeDomainDefinition(LABEL, Resolution.YEAR, 0L, new Cycle(false, false, true, false)));
+		}
+	}
+	
+	private final TimeDomainCatalog tdCat;
+
+	public SummerWinterOlympics(TimeDomainCatalog catalog) {
+		super();
+		this.tdCat = catalog;
+	}
+	
+	public void run () throws Exception {
+		
+		TimeDomain year4 = tdCat.get(EveryFourYears.LABEL);
+		TimeDomain year4s2 = tdCat.get(EveryFourYearsShiftedBy2.LABEL);
+		
+		TimeAddressable<String> solympics = new RegularTimeSeries<String>(String.class, year4);
+		TimeAddressable<String> wolympics = new RegularTimeSeries<String>(String.class, year4s2);
+		
+		solympics.put(year4.time("1996"), new String[] {"Atlanta", "Sydney", "Athens", "Beijing"});
+		wolympics.put(year4s2.time("1998"), new String[] {"Nagano", "Salt Lake City", "Turin", "Vancouver"});
+		
+		System.out.println("Some summer games:");
+		for (Observation<String> oly : solympics) {
+			System.out.println(oly.toString());
+		}
+		System.out.println("Some winter games:");
+		for (Observation<String> oly : wolympics) {
+			System.out.println(oly.toString());
+		}
+	}
+	
+	
 	
 }

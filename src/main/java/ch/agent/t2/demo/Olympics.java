@@ -16,13 +16,16 @@
  */
 package ch.agent.t2.demo;
 
+import ch.agent.t2.time.Cycle;
+import ch.agent.t2.time.Resolution;
 import ch.agent.t2.time.TimeDomain;
+import ch.agent.t2.time.TimeDomainDefinition;
 import ch.agent.t2.timeseries.Observation;
 import ch.agent.t2.timeseries.RegularTimeSeries;
 import ch.agent.t2.timeseries.TimeAddressable;
 
 /**
- * Olympics is a (very) little demo for the Time2 library.
+ * Olympics is a mini demo for the Time2 library.
  *
  * @author Jean-Paul Vetterli
  */
@@ -30,13 +33,22 @@ public class Olympics {
 
 	public static void main(String[] args) {
 		try {
-			TimeDomain year4 = new EveryFourYears();
+			// create a time domain with one point every 4th year starting in year 0000
+			TimeDomain year4 = new TimeDomainDefinition(
+					"year4",  // label
+					Resolution.YEAR, // yearly resolution
+					0L, // base = 0000
+					new Cycle(true, false, false, false) // x... x... x... x... etc.
+			).asTimeDomain();
 			
 			// define "missing value" for String (else, the default is null)
 			String missingValue = "(missing)";
 			TimeAddressable<String> olympics = new RegularTimeSeries<String>(String.class, year4, missingValue);
+			
 			olympics.put(year4.time("1896"), new String[] {"Athens", "Paris", "Saint-Louis", "London", "Stockholm"});
 			olympics.put(year4.time("1920"), new String[] {"Antwerp", "Paris", "Amsterdam", "Los Angeles", "Berlin"});
+			
+			// notice: no games in 1916, during WW I
 			
 			for (Observation<String> oly : olympics) {
 				System.out.println(oly.toString());
