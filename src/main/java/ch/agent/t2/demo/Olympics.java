@@ -35,10 +35,10 @@ public class Olympics {
 		try {
 			// create a time domain with one point every 4th year starting in year 0000
 			TimeDomain year4 = new TimeDomainDefinition(
-					"year4",  // label
-					Resolution.YEAR, // yearly resolution
-					0L, // base = 0000
-					new Cycle(true, false, false, false) // x... x... x... x... etc.
+					"year4",
+					Resolution.YEAR,
+					0L,
+					new Cycle(true, false, false, false)
 			).asTimeDomain();
 			
 			// define "missing value" for String (else, the default is null)
