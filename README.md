@@ -1,7 +1,7 @@
 time2lib-demo : Demos for the Time2 Library
 ===========================================
 
-	Copyright 2011-2013 Hauser Olsson GmbH.
+	Copyright 2011-2017 Hauser Olsson GmbH.
 	
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -20,6 +20,12 @@ time2lib-demo : Demos for the Time2 Library
 The Time2 Library is a Java library providing 
 generic time series with configurable time domains. This package
 provides a few demos.
+
+Version 2
+---------
+
+Version 2.0.0 tracks changes in the Time2 Library t2 2.0.0
+and is also more illustrative of basic concepts.
 
 Distribution
 ------------
@@ -94,16 +100,15 @@ write the command as one long line.
 Browsing the source code
 ------------------------
 
-The source is available on GitHub at 
-<http://github.com/jpvetterli/time2lib-demo.git>.
+The source is available on [GitHub](http://github.com/jpvetterli/time2lib-demo.git).
 
 Finding more information
 ------------------------
 
 More information on the Time2 Library is available at 
-<http://agent.ch/timeseries/t2/>.
+the [project web site](http://agent.ch/timeseries/t2/).
 
-<small>Updated: 2013-01-07/jpv</small>
+<small>Updated: 2017-10-06/jpv</small>
 
 <link rel="stylesheet" type="text/css" href="README.css"/>
 

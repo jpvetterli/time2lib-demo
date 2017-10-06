@@ -19,7 +19,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ch.agent</groupId>
-  <artifactId>t2-demo</artifactId><version>2.0.0-SNAPSHOT</version>
+  <artifactId>t2-demo</artifactId><version>2.0.0</version>
   <packaging>jar</packaging>
   <name>Time2 Library Demo</name>
   <url>http://agent.ch/timeseries/t2/</url>
@@ -124,7 +124,7 @@
   <dependencies>
     <dependency>
       <groupId>ch.agent</groupId>
-      <artifactId>t2</artifactId><version>2.0.0-SNAPSHOT</version>
+      <artifactId>t2</artifactId><version>2.0.0</version>
       <scope>compile</scope>
     </dependency>
 
